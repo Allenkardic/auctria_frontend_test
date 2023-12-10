@@ -1,55 +1,105 @@
 <template>
-  <div class="p-4">
-    <form @submit.prevent="formik.handleSubmit">
-      <text-input
-        id="tickName"
-        label="Tick Name"
-        type="text"
-        v-model="formik.values.tickName"
-        :error="formik.errors.tickName" />
-      <text-area-input
-        id="ticketDescription"
-        label="Ticket Description"
-        v-model="formik.values.ticketDescription"
-        :error="formik.errors.ticketDescription" />
-      <number-input
-        id="stringCount"
-        label="String Count"
-        v-model="formik.values.stringCount"
-        :error="formik.errors.stringCount" />
-      <number-input
-        id="price"
-        label="Price"
-        v-model="formik.values.price"
-        :error="formik.errors.price" />
-      <checkbox-input label="VIP" v-model="formik.values.isVip" />
-      <button type="submit" class="bg-indigo-500 text-white px-4 py-2 rounded">
-        Submit
-      </button>
-    </form>
+  <!-- <div class="container mx-auto p-4"> -->
+  <div class="flex items-center justify-center">
+    <div class="w-full pt-10 pl-4 pr-4 md:pl-0 md:pr-0 sm:w-60">
+      <div class="pb-8 text-primary font-bold text-xl text-">
+        Create a new ticket
+      </div>
+      <form @submit.prevent="handleSubmit">
+        <TextInput
+          label="Ticket Name"
+          name="ticketName"
+          v-model="formData.ticketName"
+          :error="errors.ticketName" />
+
+        <Textarea
+          label="Description"
+          name="description"
+          v-model="formData.description"
+          :error="errors.description"
+          placeholder="Enter description" />
+
+        <TextInput
+          label="Price"
+          type="number"
+          name="price"
+          v-model="formData.price"
+          :error="errors.price" />
+
+        <TextInput
+          label="Quantity count"
+          type="number"
+          name="count"
+          v-model="formData.count"
+          :error="errors.count" />
+
+        <CheckboxInput
+          label="Accept Terms"
+          name="isVip"
+          v-model="formData.isVip" />
+
+        <div class="flex justify-center mt-10 w-full">
+          <Button type="secondary">Submit</Button>
+        </div>
+      </form>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { useFormik } from "formik";
 import * as yup from "yup";
-import TextInput from "../components/TextInput.vue";
-import TextAreaInput from "../components/TextAreaInput.vue";
-import CheckboxInput from "../components/CheckboxInput.vue";
+import { defineComponent, reactive } from "vue";
+import { useForm, useField } from "vee-validate";
 
-export default {
+import TextInput from "../components/TextInput.vue";
+import CheckboxInput from "../components/CheckboxInput.vue";
+import Textarea from "../components/Textarea.vue";
+import Button from "../components/Button.vue";
+
+export default defineComponent({
   components: {
     TextInput,
-    TextAreaInput,
-    NumberInput,
+    Textarea,
     CheckboxInput,
+    Button,
   },
   setup() {
-    // ... (Same setup code as in the previous example)
-  },
-};
-</script>
+    const { handleSubmit, errors } = useForm({
+      validationSchema: yup.object({
+        ticketName: yup
+          .string()
+          .required("Ticket name is required")
+          .min(3, "Ticket name must be at least 3 characters long"),
+        price: yup.number().required("Price is required"),
+        count: yup.number().required("Product count is required"),
+        description: yup.string().required("Description is required"),
 
-<style scoped>
-/* Add your custom CSS here if needed */
-</style>
+        // Add more validation rules as needed
+      }),
+    });
+
+    const { value: ticketName } = useField("ticketName");
+    const { value: price } = useField("price");
+    const { value: description } = useField("description");
+    const { value: count } = useField("count");
+    const { value: isVip } = useField("isVip");
+
+    const formData = reactive({
+      ticketName,
+      price,
+      count,
+      description,
+      isVip: isVip,
+    });
+
+    const submitForm = (formValues: any) => {
+      console.log("Form submitted with:", formValues);
+      //   console.log(isVip, "isVip");
+
+      // Additional submit logic here
+    };
+
+    return { formData, handleSubmit: handleSubmit(submitForm), errors };
+  },
+});
+</script>
