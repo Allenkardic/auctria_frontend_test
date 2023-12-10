@@ -1,6 +1,23 @@
+<!-- src/App.vue -->
+
 <template>
-  <div class="p-5 text-lg text-center bg-green-50">
-    Welcome to Auctria's technical interview. Feel free to remove this component
-    and start coding! nfdjdj
+  <div>
+    <Navbar />
+    <router-view></router-view>
   </div>
 </template>
+
+<script lang="ts">
+import Navbar from './components/Navbar.vue';
+
+export default {
+  name: 'App',
+  components: {
+    Navbar,
+  },
+};
+</script>
+
+<style>
+/* Add any global styling here */
+</style>
