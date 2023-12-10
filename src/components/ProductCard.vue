@@ -54,13 +54,23 @@
         </div>
       </div>
     </div>
+
+    <div class="flex justify-center mb-5">
+      <Button type="secondary" @click="handlePrimaryButtonClick"
+        >Add to cart</Button
+      >
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Button from "../components/Button.vue";
 
 export default defineComponent({
+  components: {
+    Button,
+  },
   props: {
     name: String,
     description: String,
