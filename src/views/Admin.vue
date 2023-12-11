@@ -48,7 +48,12 @@
 <script lang="ts">
 import * as yup from "yup";
 import { defineComponent, reactive } from "vue";
-import { useForm, useField } from "vee-validate";
+import {
+  useForm,
+  useField,
+  SubmissionHandler,
+  GenericObject,
+} from "vee-validate";
 import { useStore } from "vuex";
 import { v4 as uuidv4 } from "uuid";
 
@@ -77,8 +82,6 @@ export default defineComponent({
         price: yup.number().required("Price is required"),
         count: yup.number().required("Product count is required"),
         description: yup.string().required("Description is required"),
-
-        // Add more validation rules as needed
       }),
     });
 
@@ -89,6 +92,7 @@ export default defineComponent({
     const { value: isVip } = useField("isVip");
 
     const formData = reactive({
+      id: "id",
       ticketName,
       price,
       count,
@@ -96,7 +100,7 @@ export default defineComponent({
       isVip: isVip,
     });
 
-    const submitForm = (formValues: any) => {
+    const submitForm: SubmissionHandler<GenericObject> = (formValues) => {
       const { ticketName, price, count, description, isVip } = formValues;
       const payload = {
         id: uuidv4(),
