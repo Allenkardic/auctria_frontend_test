@@ -1,5 +1,3 @@
-<!-- src/components/Navbar.vue -->
-
 <template>
   <nav class="text-white p-4 sticky top-0 z-50 border-b border-smokeWhite">
     <div class="container mx-auto flex items-center justify-between">

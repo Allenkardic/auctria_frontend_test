@@ -1,5 +1,3 @@
-<!-- Button.vue -->
-
 <template>
   <button :class="buttonClasses" @click="handleClick">
     <slot></slot>
