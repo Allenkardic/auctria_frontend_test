@@ -3,104 +3,60 @@
 <template>
   <div class="m-5 md:m-10">
     <div
+      v-if="products.length > 1"
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <div v-for="product in products" :key="product.id">
         <ProductCard
-          :name="product.name"
+          :ticketName="product.ticketName"
           :description="product.description"
-          :amount="product.amount"
-          :availableQuantity="product.availableQuantity"
+          :price="product.price"
+          :count="product.count"
           :isVip="product.isVip" />
       </div>
     </div>
-    <div class="text-red">hello world dhfhh</div>
-    <div class="text-red">hello world dhfhh</div>
-    <div class="text-red">hello world dhfhh</div>
-    <div class="text-red">hello world dhfhh</div>
-    <div class="text-red">hello world dhfhh</div>
-    <div class="text-red">hello world dhfhh</div>
+    <div v-else class="flex items-center justify-center mt-60">
+      <div>
+        <div class="text-grey40">
+          You do not have any product yet, click on the add button to create
+          product
+        </div>
+        <div class="flex items-center justify-center mt-10">
+          <Button type="secondary" @click="handleOnclickAddProduct">
+            Add Product
+          </Button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
 import ProductCard from "../components/ProductCard.vue";
+import Button from "../components/Button.vue";
+import router from "../router";
 
-export default {
+export default defineComponent({
   components: {
     ProductCard,
+    Button,
   },
-  data() {
+  setup() {
+    const store = useStore();
+
+    const products = computed(() => store.state.products);
+
+    const handleOnclickAddProduct = () => {
+      router.push("admin");
+    };
+
     return {
-      products: [
-        {
-          id: "1",
-          name: "Product 1",
-          description: "Description for Product 1",
-          amount: 19.99,
-          availableQuantity: 10,
-          isVip: true,
-        },
-        {
-          id: "2",
-          name: "Product 2",
-          description: "Description for Product 2",
-          amount: 29.99,
-          availableQuantity: 5,
-          isVip: true,
-        },
-        {
-          id: "3",
-          name: "Product 2",
-          description: "Description for Product 2",
-          amount: 29.99,
-          availableQuantity: 5,
-          isVip: true,
-        },
-        {
-          id: "4",
-          name: "Product 2",
-          description: "Description for Product 2",
-          amount: 29.99,
-          availableQuantity: 5,
-          isVip: false,
-        },
-        {
-          id: "5",
-          name: "Product 2",
-          description: "Description for Product 2",
-          amount: 29.99,
-          availableQuantity: 5,
-          isVip: false,
-        },
-        {
-          id: "6",
-          name: "Product 2",
-          description: "Description for Product 2",
-          amount: 29.99,
-          availableQuantity: 5,
-          isVip: true,
-        },
-        {
-          id: "7",
-          name: "Product 2",
-          description: "Description for Product 2",
-          amount: 29.99,
-          availableQuantity: 5,
-          isVip: false,
-        },
-        {
-          id: "8",
-          name: "Product 2",
-          description: "Description for Product 2",
-          amount: 29.99,
-          availableQuantity: 5,
-          isVip: false,
-        },
-        // Add more products as needed
-      ],
+      products,
+      handleOnclickAddProduct,
     };
   },
-};
+});
 </script>
 
 <style>

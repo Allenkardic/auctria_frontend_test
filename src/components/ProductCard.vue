@@ -6,14 +6,14 @@
     <div class="p-5">
       <div class="w-full flex flex-row justify-between">
         <div class="uppercase tracking-wide text-sm text-grey80 font-semibold">
-          {{ name }}
+          {{ ticketName }}
         </div>
         <div v-show="isVip">
           <font-awesome-icon icon="star" class="text-secondary" />
         </div>
       </div>
       <p class="mt-2 text-primary text-xl font-bold">
-        ${{ parseFloat(amount) }}
+        ${{ parseFloat(price) }}
       </p>
       <p class="mt-6 text-grey40 text-xs">{{ description }}</p>
       <div class="mt-4 flex items-center">
@@ -72,10 +72,10 @@ export default defineComponent({
     Button,
   },
   props: {
-    name: String,
+    ticketName: String,
     description: String,
-    amount: Number,
-    availableQuantity: Number,
+    price: Number,
+    count: Number,
     isVip: Boolean,
   },
 
@@ -87,7 +87,7 @@ export default defineComponent({
   methods: {
     increaseQuantity() {
       const { quantity, $props } = this;
-      if (quantity < $props?.availableQuantity) {
+      if (quantity < $props?.count) {
         this.quantity++;
       }
     },

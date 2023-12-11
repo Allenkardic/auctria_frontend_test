@@ -48,9 +48,12 @@
 
 <script lang="ts">
 import * as yup from "yup";
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, computed } from "vue";
 import { useForm, useField } from "vee-validate";
+import { useStore } from "vuex";
+import { v4 as uuidv4 } from "uuid";
 
+import router from "../router";
 import TextInput from "../components/TextInput.vue";
 import CheckboxInput from "../components/CheckboxInput.vue";
 import Textarea from "../components/Textarea.vue";
@@ -64,6 +67,14 @@ export default defineComponent({
     Button,
   },
   setup() {
+    const store = useStore();
+    // Computed property to get products
+    const products = computed(() => store.state.products);
+
+    console.log(products.value, "vv");
+    // access a state in computed function
+    // console.log(products, products);
+
     const { handleSubmit, errors } = useForm({
       validationSchema: yup.object({
         ticketName: yup
@@ -93,13 +104,28 @@ export default defineComponent({
     });
 
     const submitForm = (formValues: any) => {
-      console.log("Form submitted with:", formValues);
-      //   console.log(isVip, "isVip");
+      const { ticketName, price, count, description, isVip } = formValues;
+      const payload = {
+        id: uuidv4(),
+        ticketName,
+        description,
+        price,
+        count,
+        isVip: isVip === undefined ? false : isVip,
+      };
 
-      // Additional submit logic here
+      // add this product to the list of products
+      store.dispatch("addProduct", payload);
+
+      router.push("/");
     };
 
-    return { formData, handleSubmit: handleSubmit(submitForm), errors };
+    return {
+      formData,
+      handleSubmit: handleSubmit(submitForm),
+      errors,
+      products,
+    };
   },
 });
 </script>
