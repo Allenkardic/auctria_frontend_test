@@ -63,7 +63,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style>
-/* Add any global styling here */
-</style>
