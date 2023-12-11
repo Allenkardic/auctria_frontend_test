@@ -1,25 +1,68 @@
-<!-- src/App.vue -->
-
 <template>
-  <div class="text-red">CART PAGE</div>
-  <div class="text-red">CART PAGE</div>
-  <div class="text-red">CART PAGE</div>
-  <div class="text-red">CART PAGE</div>
-  <div class="text-red">CART PAGE</div>
-  <div class="text-red">CART PAGE</div>
-  <div class="text-red">CART PAGE</div>
-  <div class="text-red">CART PAGE</div>
-  <div class="text-red">CART PAGE</div>
+  <div class="m-5 md:m-10">
+    <div
+      v-if="products.length >= 1"
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+      <div v-for="product in products" :key="product.id">
+        <CartCard
+          @click="handleAddToCart(product)"
+          :ticketName="product.ticketName"
+          :description="product.description"
+          :price="product.price"
+          :count="product.count"
+          :isVip="product.isVip" />
+      </div>
+    </div>
+    <div v-else class="flex items-center justify-center mt-60">
+      <div>
+        <div class="text-grey40">
+          You do not have any product yet, click on the add button to create
+          product
+        </div>
+        <div class="flex items-center justify-center mt-10">
+          <Button type="secondary" @click="handleOnclickAddProduct">
+            Add Product
+          </Button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
-import ProductCard from "../components/ProductCard.vue";
+import { defineComponent, computed } from "vue";
+import { useStore } from "vuex";
+import CartCard from "../components/CartCard.vue";
+import Button from "../components/Button.vue";
+import router from "../router";
 
-export default {
+export default defineComponent({
   components: {
-    ProductCard,
+    CartCard,
+    Button,
   },
-};
+  setup() {
+    const store = useStore();
+
+    const products = computed(() => store.state.cart);
+
+    console.log(products, "cart");
+    const handleOnclickAddProduct = () => {
+      router.push("admin");
+    };
+
+    const handleAddToCart = async (product: any) => {
+      await store.dispatch("addToCart", product);
+      router.push("cart");
+    };
+
+    return {
+      products,
+      handleOnclickAddProduct,
+      handleAddToCart,
+    };
+  },
+});
 </script>
 
 <style>

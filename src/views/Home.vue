@@ -1,7 +1,7 @@
 <template>
   <div class="m-5 md:m-10">
     <div
-      v-if="products.length > 1"
+      v-if="products.length >= 1"
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <div v-for="product in products" :key="product.id">
         <ProductCard
@@ -51,6 +51,7 @@ export default defineComponent({
     };
 
     const handleAddToCart = async (product: any) => {
+      console.log(product, "product");
       await store.dispatch("addToCart", product);
       router.push("cart");
     };

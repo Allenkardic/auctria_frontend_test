@@ -95,10 +95,7 @@ export default defineComponent({
       }
     },
 
-    handleClick() {
-      // Emit an event with details when the button is clicked
-      this.$emit("click");
-    },
+    handleClick() {},
   },
 });
 </script>
