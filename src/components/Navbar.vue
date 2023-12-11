@@ -6,12 +6,14 @@
           to="/"
           class="text-primary text-lg font-bold cursor-pointer"
           active-class="my-custom-active-class"
+          data-testid="home-link"
           >Home</router-link
         >
         <router-link
           to="/admin"
           class="text-primary cursor-pointer"
           active-class="my-custom-active-class"
+          data-testid="admin-link"
           >Admin</router-link
         >
       </div>
@@ -20,6 +22,7 @@
         to="/cart"
         class="text-primary cursor-pointer"
         active-class="my-custom-active-class"
+        data-testid="cart-link"
         >Cart
         <font-awesome-icon icon="shopping-cart" class="text-secondary" />
       </router-link>
