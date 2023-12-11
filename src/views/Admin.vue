@@ -1,5 +1,4 @@
 <template>
-  <!-- <div class="container mx-auto p-4"> -->
   <div class="flex items-center justify-center">
     <div class="w-full pt-10 pl-4 pr-4 md:pl-0 md:pr-0 sm:w-60">
       <div class="pb-8 text-primary font-bold text-xl text-">
@@ -48,7 +47,7 @@
 
 <script lang="ts">
 import * as yup from "yup";
-import { defineComponent, reactive, computed } from "vue";
+import { defineComponent, reactive } from "vue";
 import { useForm, useField } from "vee-validate";
 import { useStore } from "vuex";
 import { v4 as uuidv4 } from "uuid";
@@ -68,12 +67,6 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
-    // Computed property to get products
-    const products = computed(() => store.state.products);
-
-    console.log(products.value, "vv");
-    // access a state in computed function
-    // console.log(products, products);
 
     const { handleSubmit, errors } = useForm({
       validationSchema: yup.object({
@@ -124,7 +117,6 @@ export default defineComponent({
       formData,
       handleSubmit: handleSubmit(submitForm),
       errors,
-      products,
     };
   },
 });

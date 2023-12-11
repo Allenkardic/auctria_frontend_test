@@ -56,7 +56,9 @@
     </div>
 
     <div class="flex justify-center mb-5">
-      <Button type="secondary" @click="handleClick">Add to cart</Button>
+      <Button type="secondary" @click="handleDeleteTicket"
+        >Delete Ticket</Button
+      >
     </div>
   </div>
 </template>
@@ -93,11 +95,6 @@ export default defineComponent({
       if (this.quantity > 1) {
         this.quantity--;
       }
-    },
-
-    handleClick() {
-      // Emit an event with details when the button is clicked
-      this.$emit("click");
     },
   },
 });

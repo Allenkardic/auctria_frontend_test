@@ -1,5 +1,3 @@
-<!-- src/App.vue -->
-
 <template>
   <div class="m-5 md:m-10">
     <div
@@ -7,6 +5,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <div v-for="product in products" :key="product.id">
         <ProductCard
+          @click="handleAddToCart(product)"
           :ticketName="product.ticketName"
           :description="product.description"
           :price="product.price"
@@ -51,9 +50,15 @@ export default defineComponent({
       router.push("admin");
     };
 
+    const handleAddToCart = async (product: any) => {
+      await store.dispatch("addToCart", product);
+      router.push("cart");
+    };
+
     return {
       products,
       handleOnclickAddProduct,
+      handleAddToCart,
     };
   },
 });
