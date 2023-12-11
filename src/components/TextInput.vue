@@ -57,7 +57,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-/* Add Tailwind CSS styles or custom styles here */
-</style>

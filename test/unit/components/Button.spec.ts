@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import Button from "../../../src/components/Button.vue"; // Update the path according to your project structure
+import Button from "../../../src/components/Button.vue";
 
 describe("Button", () => {
   it("renders slot content", () => {

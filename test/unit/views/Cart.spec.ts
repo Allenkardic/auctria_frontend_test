@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { shallowMount, mount } from "@vue/test-utils";
-import CartPage from "../../../src/views/Cart.vue"; // Adjust the path to your component
+import CartPage from "../../../src/views/Cart.vue";
 import Vuex from "vuex";
 import router from "../../../src/router";
 
