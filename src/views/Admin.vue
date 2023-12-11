@@ -33,7 +33,7 @@
           :error="errors.count" />
 
         <CheckboxInput
-          label="Accept Terms"
+          label="Ticket is VIP"
           name="isVip"
           v-model="formData.isVip" />
 
