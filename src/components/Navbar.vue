@@ -7,14 +7,21 @@
         <router-link
           to="/"
           class="text-primary text-lg font-bold cursor-pointer"
+          active-class="my-custom-active-class"
           >Home</router-link
         >
-        <router-link to="/admin" class="text-primary cursor-pointer"
+        <router-link
+          to="/admin"
+          class="text-primary cursor-pointer"
+          active-class="my-custom-active-class"
           >Admin</router-link
         >
       </div>
 
-      <router-link to="/cart" class="text-primary cursor-pointer"
+      <router-link
+        to="/cart"
+        class="text-primary cursor-pointer"
+        active-class="my-custom-active-class"
         >Cart
         <font-awesome-icon icon="shopping-cart" class="text-secondary" />
       </router-link>
@@ -35,5 +42,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Add any additional styling here */
+.router-link-exact-active {
+  color: #ff9b00; /* Change color for active link */
+  font-weight: bold;
+}
 </style>
