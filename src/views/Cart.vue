@@ -5,7 +5,7 @@
       class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <div v-for="product in products" :key="product.id">
         <CartCard
-          @click="handleAddToCart(product)"
+          @click="handleDeleteCart(product.id)"
           :ticketName="product.ticketName"
           :description="product.description"
           :price="product.price"
@@ -16,12 +16,12 @@
     <div v-else class="flex items-center justify-center mt-60">
       <div>
         <div class="text-grey40">
-          You do not have any product yet, click on the add button to create
-          product
+          You do not have any product in cart yet, click on the add button to
+          select a ticket
         </div>
         <div class="flex items-center justify-center mt-10">
           <Button type="secondary" @click="handleOnclickAddProduct">
-            Add Product
+            Home
           </Button>
         </div>
       </div>
@@ -46,20 +46,20 @@ export default defineComponent({
 
     const products = computed(() => store.state.cart);
 
-    console.log(products, "cart");
+    // Navigate to home page if there are no carts
     const handleOnclickAddProduct = () => {
-      router.push("admin");
+      router.push("/");
     };
 
-    const handleAddToCart = async (product: any) => {
-      await store.dispatch("addToCart", product);
+    const handleDeleteCart = async (id: string) => {
+      await store.dispatch("deleteCart", id);
       router.push("cart");
     };
 
     return {
       products,
       handleOnclickAddProduct,
-      handleAddToCart,
+      handleDeleteCart,
     };
   },
 });

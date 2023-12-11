@@ -51,7 +51,6 @@ export default defineComponent({
     };
 
     const handleAddToCart = async (product: any) => {
-      console.log(product, "product");
       await store.dispatch("addToCart", product);
       router.push("cart");
     };

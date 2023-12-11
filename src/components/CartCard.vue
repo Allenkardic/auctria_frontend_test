@@ -17,8 +17,8 @@
       <p class="mt-6 text-grey40 text-xs">{{ count }}</p>
     </div>
 
-    <div class="flex justify-center mb-5">
-      <Button type="secondary" @click="handleClick">Delete Ticket</Button>
+    <div class="flex justify-center mb-5 text-white">
+      <Button type="delete" @click="handleClick">Delete Ticket</Button>
     </div>
   </div>
 </template>

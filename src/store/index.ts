@@ -20,7 +20,13 @@ export default createStore<State>({
     addToCart(state, cartItem: ProductIProps) {
       state.cart.push(cartItem);
     },
-    // Additional mutations as needed
+
+    deleteCart(state, productId: string) {
+      const index = state.cart.findIndex((item) => item.id === productId);
+      if (index !== -1) {
+        state.cart.splice(index, 1);
+      }
+    },
   },
   actions: {
     addProduct({ commit }, productItem: ProductIProps) {
@@ -29,7 +35,9 @@ export default createStore<State>({
     addToCart({ commit }, cartItem: ProductIProps) {
       commit("addToCart", cartItem);
     },
-    // Additional actions as needed
+    deleteCart({ commit }, productId: string) {
+      commit("deleteCart", productId);
+    },
   },
   plugins: [vuexPersist.plugin],
 });

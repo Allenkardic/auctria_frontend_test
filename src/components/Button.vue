@@ -12,7 +12,7 @@ import { defineComponent, PropType } from "vue";
 export default defineComponent({
   props: {
     type: {
-      type: String as PropType<"primary" | "secondary">,
+      type: String as PropType<"primary" | "secondary" | "delete">,
       default: "primary",
     },
     size: {
@@ -30,6 +30,7 @@ export default defineComponent({
       const dynamicClasses = {
         "bg-primary text-white": this.type === "primary",
         "bg-secondary text-white": this.type === "secondary",
+        "bg-red text-white": this.type === "delete",
         "text-sm": this.size === "small",
         "text-base": this.size === "medium",
         "text-lg": this.size === "large",
